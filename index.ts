@@ -1,11 +1,9 @@
-// TO-DO/eventually: implement comment `// spellcheck-ignore`
-// - https://github.com/crate-ci/typos/issues/1322#issuecomment-2971026339
-// - Create temp config at /tmp/_typos.yml
-// - Show `stderr` of runTypos('--write-changes')
-
 import { shell } from '@brillout/shell'
 import pc from '@brillout/picocolors'
 import assert from 'node:assert'
+import { createRequire } from 'node:module'
+const require = createRequire(import.meta.url)
+const typosTomlFilePath = require.resolve('../typos.toml')
 
 main()
 
@@ -34,14 +32,18 @@ async function fix() {
 }
 
 async function check() {
-  const res = await runTypos('--diff')
+  const res = await runTypos()
   const noTypos = res.stdout.trim().length === 0
   if (noTypos) {
     console.log(pc.green(pc.bold('✅ No typos found.')))
   } else {
     console.log(res.stdout)
-    console.log(pc.red(pc.bold('❌ Typos found (see above)')))
-    console.log(pc.blue(`➡️  Fix typos by running ${pc.bold('$ pnpm run spellcheck')}`))
+    console.log(pc.red(pc.bold('❌ Typos found (see above).')))
+    console.log(
+      pc.blue(
+        `➡️  Fix typos by running ${pc.bold('$ pnpm run spellcheck')}, or use ${pc.bold('spellcheck-ignore')} comments.`,
+      ),
+    )
     process.exit(1)
   }
 }
@@ -56,9 +58,12 @@ async function hasRepoChanges() {
 pnpm dlx github:dalisoft/typos-rs-npm --help
 ```
 */
-function runTypos(arg: '--diff' | '--write-changes') {
+function runTypos(arg: '' | '--write-changes' = '') {
   assert(version)
-  return shell(`pnpm dlx github:dalisoft/typos-rs-npm#v${version} --color always ${arg}`, { tolerateExitCode: true })
+  return shell(
+    `pnpm dlx github:dalisoft/typos-rs-npm#v${version} --config ${typosTomlFilePath} --color always ${arg}`,
+    { tolerateExitCode: true },
+  )
 }
 
 var version: string | undefined
