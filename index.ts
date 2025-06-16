@@ -10,11 +10,9 @@ import assert from 'node:assert'
 main()
 
 async function main() {
-  const arg = process.argv[2]
-  assert(arg === 'fix' || arg === 'check')
-
-  if (arg === 'fix') await fix()
-  if (arg === 'check') await check()
+  const { operation } = parseCliArgs()
+  if (operation === 'fix') await fix()
+  if (operation === 'check') await check()
 }
 
 async function fix() {
@@ -55,9 +53,27 @@ async function hasRepoChanges() {
 
 /* Options:
 ```bash
-pnpm dlx github:dalisoft/typos-rs-npm#v1.33.1 --help
+pnpm dlx github:dalisoft/typos-rs-npm --help
 ```
 */
 function runTypos(arg: '--diff' | '--write-changes') {
-  return shell(`pnpm dlx github:dalisoft/typos-rs-npm#v1.33.1 --color always ${arg}`, { tolerateExitCode: true })
+  assert(version)
+  return shell(`pnpm dlx github:dalisoft/typos-rs-npm#v${version} --color always ${arg}`, { tolerateExitCode: true })
+}
+
+var version: string | undefined
+function parseCliArgs() {
+  let operation: 'fix' | 'check' | undefined
+  let stateIsVersion = false
+  for (const arg of process.argv.slice(2)) {
+    if (arg === 'fix' || arg === 'check') operation = arg
+    else if (arg === '--version') stateIsVersion = true
+    else if (stateIsVersion) version = arg
+    else throw new Error(`Unknown argument ${pc.bold(arg)}`)
+  }
+  if (!operation) throw new Error(`Missing argument ${pc.bold('fix')} or ${pc.bold('check')}`)
+  if (!version) throw new Error(`Missing argument ${pc.bold('--version')}`)
+  if (!/^[0-9]/.test(version))
+    throw new Error(`--version is set to ${pc.bold(version)} but it must start with a number`)
+  return { operation, version }
 }
