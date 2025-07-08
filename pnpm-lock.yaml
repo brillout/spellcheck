@@ -12,8 +12,8 @@ importers:
         specifier: ^1.0.28
         version: 1.0.28
       '@brillout/shell':
-        specifier: ^0.2.0
-        version: 0.2.0
+        specifier: ^0.2.1
+        version: 0.2.1
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
@@ -90,8 +90,8 @@ packages:
     resolution: {integrity: sha512-U5SdlYZjl5bVWFzYiPgy6Sm+nq4OkNdLdpycl0NbICtScNwnejX2WYdXZ96gRYrchHpKxEmFSyspTQhzYETvzA==}
     hasBin: true
 
-  '@brillout/shell@0.2.0':
-    resolution: {integrity: sha512-PAUZOIePE9zdkYVUE1Ybpx5Q2ydNbTluTzQ4w5x4WuWMn+zQF3+DG4gRuQy76ZM1ScdiCK5gldgGJQrVx4w5lg==}
+  '@brillout/shell@0.2.1':
+    resolution: {integrity: sha512-l5PTMWw6rndD7vZcMvw1bv31sTzpz0qP3q409PD50ATsfxhvbMvDVySnV73Okoskfd673oClIlt6OnupbQJqHA==}
 
   '@conventional-changelog/git-client@2.5.1':
     resolution: {integrity: sha512-lAw7iA5oTPWOLjiweb7DlGEMDEvzqzLLa6aWOly2FSZ64IwLE8T458rC+o+WvI31Doz6joM7X2DoNog7mX8r4A==}
@@ -354,7 +354,7 @@ snapshots:
     transitivePeerDependencies:
       - conventional-commits-filter
 
-  '@brillout/shell@0.2.0':
+  '@brillout/shell@0.2.1':
     dependencies:
       '@brillout/picocolors': 1.0.28
 
