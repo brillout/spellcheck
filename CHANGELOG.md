@@ -1,3 +1,12 @@
+## [0.1.3](https://github.com/brillout/spellcheck/compare/v0.1.2...v0.1.3) (2026-05-15)
+
+
+### Bug Fixes
+
+* add link to repo ([1987d42](https://github.com/brillout/spellcheck/commit/1987d4207838bf3d3fc488ebca24eea52c17eb35))
+
+
+
 ## [0.1.2](https://github.com/brillout/spellcheck/compare/v0.1.1...v0.1.2) (2025-07-08)
 
 
