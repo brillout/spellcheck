@@ -1,6 +1,7 @@
 {
   "name": "@brillout/spellcheck",
   "version": "0.1.2",
+  "repository": "https://github.com/brillout/spellcheck",
   "main": "./dist/index.js",
   "dependencies": {
     "@brillout/picocolors": "^1.0.28",
